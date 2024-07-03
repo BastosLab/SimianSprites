@@ -109,12 +109,9 @@ class SpritesVideo(torch.nn.Module):
     @property
     def sprite_shape(self):
         if not torch.isnan(self.rf).any():
-            radii = []
             rx, ry = self.rf[2:4]
             rx, ry = SpritesVideo.coords_to_pixels(rx, ry)
-            radii.append(rx)
-            radii.append(ry)
-            sprite_side = int((max(radii) / math.sqrt(2)).round())
+            sprite_side = int((min(rx, ry) / math.sqrt(2)).round())
             return torch.Size([sprite_side, sprite_side])
         return self.sprites.shape[1:3]
 
