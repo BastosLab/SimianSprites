@@ -64,8 +64,8 @@ class SpritesVideo(torch.nn.Module):
         rx, ry = int(torch.round(rx)), int(torch.round(ry))
         c = SpritesVideo.PUNCH_OUT_COLOR
 
-        mask = cv.ellipse(mask, (x, y), (rx, ry), theta.item(), 0, 360,
-                          (c, c, c), -1)
+        mask = cv.ellipse(mask, (x, y), (rx, ry), torch.rad2deg(theta).item(),
+                          0, 360, (c, c, c), -1)
 
         if punchout:
             frame = np.where(mask > 0, mask, frame)
